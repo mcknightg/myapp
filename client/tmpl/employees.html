@@ -1,0 +1,45 @@
+<template name="employees">
+	{{#if showAddEmployee}}
+	{{>employeeForm}}
+	{{/if}}
+	<div class="container-fluid">
+	    <div class="row-fluid">	
+	        <div class="page-header">
+	          <h1>Employee <small>List</small></h1>
+	        </div>
+			<button class="btn btn-large btn-success addEmployee">Add Employee</button>
+			<table class="table table-bordered table-striped table-hover">
+			    <thead>
+			        <tr>
+			            <th>Name</th>
+			        </tr>
+			    </thead>
+			    <tbody>
+			        {{#each employeeList}}
+					{{>employeeRow}}
+					{{/each}}
+			    </tbody>
+			</table>
+	    </div>
+	</div>
+</template>
+<template name="employeeRow">
+	<tr class="success employeeRow">
+		<td>{{name}}</td>
+	</tr>
+</template>
+<template name="employeeForm">
+	<div id="example" class="modal">
+	<div class="modal-header">
+	<a class="close" data-dismiss="modal">×</a>
+	<h3>Add Employee</h3>
+	</div>
+	<div class="modal-body">
+       <label for="name">name</label><input class="input input-xlarge name" type="text" name="name" value="{{employee.name}}" id="name">
+       
+	</div>
+	<div class="modal-footer">
+	<a href="#" class="btn btn-success save">Save</a>
+	<a href="#" class="btn cancel" data-dismiss="modal">Cancel</a>
+	</div>
+</template>

@@ -1,0 +1,77 @@
+<template name="projects">
+	{{#if showProjectDialog}}
+	{{>projectForm}}
+	{{/if}}
+	<div class="container-fluid">
+	    <div class="row-fluid">	
+	        <div class="page-header">
+	          <h1>Project <small>List</small></h1>
+	        </div>
+			<button class="btn btn-large btn-success addProject">Add Project</button>
+			<table class="table table-bordered table-striped table-hover">
+			    <thead>
+			        <tr>
+			            <th>Name</th>
+						<th>Client</th>
+						<th>Due Date</th>
+						<th>Status</th>
+						<th>Owner</th>
+			        </tr>
+			    </thead>
+			    <tbody>
+			       {{#each projectList}}
+					{{>projectRow}}
+				   {{/each}}
+			    </tbody>
+			</table>
+	    </div>
+	</div>
+</template>
+<template name="projectRow">
+	 <tr class="projectRow">
+     	<td>{{name}}</td>
+ 		<td>{{client}}</td>
+ 		<td>{{formatDate datedue}}</td>
+ 		<td>{{status}}</td>
+		<td>{{owner.name}}</td>
+     </tr>
+</template>	
+<template name="projectForm">
+	<div id="example" class="modal">
+	<div class="modal-header">
+	<a class="close" data-dismiss="modal">×</a>
+	{{#if editing_project}}
+	<h3>Update Project</h3>
+	{{else}}
+	<h3>Add Project</h3>
+	{{/if}}
+	</div>
+	<div class="modal-body">
+		<label for="name">Name:</label><input type="text" class="input input-xlarge name" name="name" value="{{project.name}}" id="name">
+		<label for="client">Client:</label><input class="input input-xlarge client" type="text" name="client" value="{{project.client}}" id="client">
+		<label>Status</label>
+		<select class="status" name="status" id="status">
+			<option value="OnHold">On Hold</option>
+			<option value="Active">Active</option>
+			
+		</select>
+		<label for="date_due">Date Due</label>
+		<input class="datedue" type="date" name="date_due" value="{{project.datedue}}" id="date_due"><br/>
+		
+		<label>Owner</label>
+		<select name="owner" id="owner" class="owner">
+			{{#each employees}}
+			<option value="{{_id}}">{{name}}</option>
+			{{/each}}
+		</select>
+	</div>
+	<div class="modal-footer">
+		{{#if editing_project}}
+		<a href="#" class="btn btn-danger remove">Delete</a>
+		<a href="#" class="btn btn-warning save">Update</a>
+		{{else}}
+		<a href="#" class="btn btn-success save">Save</a>
+		{{/if}}
+	<a href="#" class="btn cancel" data-dismiss="modal">Cancel</a>
+	</div>
+</template>
